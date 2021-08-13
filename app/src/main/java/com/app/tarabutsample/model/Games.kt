@@ -1,12 +1,16 @@
 package com.app.tarabutsample.model
 
+import android.os.Parcelable
 import com.squareup.moshi.Json
+import kotlinx.parcelize.Parcelize
 
 /**
  * Created by Tarun on 13/08/2021
  */
-class Games : ArrayList<GamesItem>()
+@Parcelize
+data class Games(val gamesItem: List<GamesItem>) : Parcelable
 
+@Parcelize
 data class GamesItem(
     @Json(name = "Date")
     val date: String,
@@ -20,4 +24,12 @@ data class GamesItem(
     val linkA: String,
     @Json(name = "link_B")
     val linkB: String
-)
+) : Parcelable{
+    fun getTeamAScore(): String{
+        return score.split("-".toRegex())[0]
+    }
+
+    fun getTeamBScore(): String{
+        return score.split("-".toRegex())[1]
+    }
+}
