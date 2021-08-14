@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/gameList">
 
@@ -8,22 +9,22 @@
         android:id="@+id/gameList"
         android:name="com.app.blog.ui.list.view.GamesListFragment"
         android:label="fragment_list">
-       <!-- <action
+        <action
             android:id="@+id/action_showDetail"
-            app:destination="@id/adDetail" />-->
+            app:destination="@id/gameDetail" />
     </fragment>
 
-   <!-- <fragment
-        android:id="@+id/adDetail"
-        android:name="com.app.blog.ui.component.post_detail.PostDetail"
+    <fragment
+        android:id="@+id/gameDetail"
+        android:name="com.app.tarabutsample.ui.main.components.ui.GameDetail"
         android:label="fragment_detail">
 
         <argument
-            android:name="selectedAd"
-            app:argType="com.app.blog.model.Results" />
+            android:name="selectedGame"
+            app:argType="com.app.tarabutsample.model.GamesItem" />
         <action
             android:id="@+id/action_adDetail_to_adList"
-            app:destination="@id/adList"
-            app:popUpTo="@id/adList" />
-    </fragment>-->
+            app:destination="@id/gameList"
+            app:popUpTo="@id/gameList" />
+    </fragment>
 </navigation>

@@ -7,8 +7,6 @@ import kotlinx.parcelize.Parcelize
 /**
  * Created by Tarun on 13/08/2021
  */
-@Parcelize
-data class Games(val gamesItem: List<GamesItem>) : Parcelable
 
 @Parcelize
 data class GamesItem(

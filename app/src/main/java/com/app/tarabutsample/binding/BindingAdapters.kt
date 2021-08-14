@@ -6,7 +6,6 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.app.blog.ui.component.post_list.adapter.GamesListAdapter
 import com.app.tarabutsample.R
-import com.app.tarabutsample.model.Games
 import com.app.tarabutsample.model.GamesItem
 import com.app.tarabutsample.ui.main.components.viewmodel.ApiStatus
 

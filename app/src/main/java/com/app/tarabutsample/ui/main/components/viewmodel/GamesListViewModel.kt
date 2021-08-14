@@ -9,7 +9,11 @@ import com.app.tarabutsample.model.GamesItem
 import com.app.tarabutsample.repository.GamesListRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flattenMerge
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 enum class ApiStatus {
@@ -37,16 +41,20 @@ class GamesListViewModel @Inject constructor(gamesListRepository: GamesListRepos
 
     //For navigation
 
-    private val _navigateToAdDetail = MutableLiveData<GamesItem>()
+    private val _navigateToGameDetail = MutableLiveData<GamesItem>()
 
-    val navigateToAdDetail: LiveData<GamesItem>
-        get() = _navigateToAdDetail
+    val navigateToGameDetail: LiveData<GamesItem>
+        get() = _navigateToGameDetail
 
     init {
         viewModelScope.launch {
             _status.value = ApiStatus.LOADING
             try {
-                gamesListRepository.getData().collect {
+                val firstGameList = gamesListRepository.getData()
+                val secondGameList = gamesListRepository.getMoreData()
+                firstGameList.combine(secondGameList) { firstGameListValue, secondGameListValue ->
+                    firstGameListValue + secondGameListValue
+                }.collect {
                     _results.value = it
                 }
                 _status.value = ApiStatus.COMPLETED
@@ -56,13 +64,13 @@ class GamesListViewModel @Inject constructor(gamesListRepository: GamesListRepos
         }
     }
 
-    fun displayAdDetail(result: GamesItem) {
-        _navigateToAdDetail.value = result
+    fun displayGameDetail(result: GamesItem) {
+        _navigateToGameDetail.value = result
     }
 
     @SuppressLint("NullSafeMutableLiveData")
-    fun displayAdDetailComplete() {
-        _navigateToAdDetail.value = null
+    fun displayGameDetailComplete() {
+        _navigateToGameDetail.value = null
     }
 
 

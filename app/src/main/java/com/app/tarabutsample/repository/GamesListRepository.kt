@@ -15,4 +15,8 @@ class GamesListRepository @Inject constructor(
         emit(apiService.getUpcomingGames())
     }.flowOn(Dispatchers.IO)
 
+    fun getMoreData() = flow {
+        emit(apiService.getMoreUpcomingGames())
+    }.flowOn(Dispatchers.IO)
+
 }
